@@ -28,7 +28,6 @@ const generateId = () => {
 const bookController = {
   // Get all books
   getAllBooks: async (req, res) => {
-    console.log("getAllBooks called begin");
     try {
       const books = await readBooksFromFile();
       res.json({
@@ -68,7 +67,6 @@ const bookController = {
         error: 'Failed to fetch book'
       });
     }
-    console.log("getBookById called");
   },
 
   // Create new book
@@ -101,7 +99,6 @@ const bookController = {
         error: 'Failed to create book'
       });
     }
-    console.log("createBook called");
   },
 
   // Delete book by ID
@@ -131,7 +128,6 @@ const bookController = {
         error: 'Failed to delete book'
       });
     }
-    console.log("deleteBook called");
   }
 };
 
