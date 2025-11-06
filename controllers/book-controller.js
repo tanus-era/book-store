@@ -17,7 +17,7 @@ const readBooksFromFile = async () => {
 
 // Helper function to write books to file
 const writeBooksToFile = async (books) => {
-//   await fs.writeFile(booksFilePath, JSON.stringify(books, null, 2));
+  await fs.writeFile(booksFilePath, JSON.stringify(books, null, 2));
 };
 
 // Generate unique ID
@@ -47,90 +47,90 @@ const bookController = {
 
   // Get specific book by ID
   getBookById: async (req, res) => {
-    // try {
-    //   const books = await readBooksFromFile();
-    //   const book = books.find(b => b.id === req.params.id);
+    try {
+      const books = await readBooksFromFile();
+      const book = books.find(b => b.id === req.params.id);
       
-    //   if (!book) {
-    //     return res.status(404).json({
-    //       success: false,
-    //       error: 'Book not found'
-    //     });
-    //   }
+      if (!book) {
+        return res.status(404).json({
+          success: false,
+          error: 'Book not found'
+        });
+      }
 
-    //   res.json({
-    //     success: true,
-    //     data: book
-    //   });
-    // } catch (error) {
-    //   res.status(500).json({
-    //     success: false,
-    //     error: 'Failed to fetch book'
-    //   });
-    // }
+      res.json({
+        success: true,
+        data: book
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: 'Failed to fetch book'
+      });
+    }
     console.log("getBookById called");
   },
 
   // Create new book
   createBook: async (req, res) => {
-    // try {
-    //   const books = await readBooksFromFile();
-    //   const newBook = {
-    //     id: generateId(),
-    //     title: req.body.title,
-    //     author: req.body.author,
-    //     isbn: req.body.isbn,
-    //     price: req.body.price,
-    //     publicationYear: req.body.publicationYear,
-    //     genre: req.body.genre,
-    //     description: req.body.description,
-    //     createdAt: new Date().toISOString()
-    //   };
+    try {
+      const books = await readBooksFromFile();
+      const newBook = {
+        id: generateId(),
+        title: req.body.title,
+        author: req.body.author,
+        isbn: req.body.isbn,
+        price: req.body.price,
+        publicationYear: req.body.publicationYear,
+        genre: req.body.genre,
+        description: req.body.description,
+        createdAt: new Date().toISOString()
+      };
 
-    //   books.push(newBook);
-    //   await writeBooksToFile(books);
+      books.push(newBook);
+      await writeBooksToFile(books);
 
-    //   res.status(201).json({
-    //     success: true,
-    //     message: 'Book created successfully',
-    //     data: newBook
-    //   });
-    // } catch (error) {
-    //   res.status(500).json({
-    //     success: false,
-    //     error: 'Failed to create book'
-    //   });
-    // }
+      res.status(201).json({
+        success: true,
+        message: 'Book created successfully',
+        data: newBook
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: 'Failed to create book'
+      });
+    }
     console.log("createBook called");
   },
 
   // Delete book by ID
   deleteBook: async (req, res) => {
-    // try {
-    //   const books = await readBooksFromFile();
-    //   const bookIndex = books.findIndex(b => b.id === req.params.id);
+    try {
+      const books = await readBooksFromFile();
+      const bookIndex = books.findIndex(b => b.id === req.params.id);
       
-    //   if (bookIndex === -1) {
-    //     return res.status(404).json({
-    //       success: false,
-    //       error: 'Book not found'
-    //     });
-    //   }
+      if (bookIndex === -1) {
+        return res.status(404).json({
+          success: false,
+          error: 'Book not found'
+        });
+      }
 
-    //   const deletedBook = books.splice(bookIndex, 1)[0];
-    //   await writeBooksToFile(books);
+      const deletedBook = books.splice(bookIndex, 1)[0];
+      await writeBooksToFile(books);
 
-    //   res.json({
-    //     success: true,
-    //     message: 'Book deleted successfully',
-    //     data: deletedBook
-    //   });
-    // } catch (error) {
-    //   res.status(500).json({
-    //     success: false,
-    //     error: 'Failed to delete book'
-    //   });
-    // }
+      res.json({
+        success: true,
+        message: 'Book deleted successfully',
+        data: deletedBook
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: 'Failed to delete book'
+      });
+    }
     console.log("deleteBook called");
   }
 };
