@@ -5,14 +5,14 @@ const booksFilePath = path.join(__dirname, '../data/book-data.json');
 
 // Helper function to read books from file
 const readBooksFromFile = async () => {
-//   try {
-//     const data = await fs.readFile(booksFilePath, 'utf8');
-//     return JSON.parse(data);
-//   } catch (error) {
-//     // If file doesn't exist, return empty array
-//     return [];
-//   }
-    console.log("readBooksFromFile called");
+  try {
+    const data = await fs.readFile(booksFilePath, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    // If file doesn't exist, return empty array
+    return [];
+  }
+    // console.log("readBooksFromFile called");
 };
 
 // Helper function to write books to file
@@ -29,25 +29,19 @@ const bookController = {
   // Get all books
   getAllBooks: async (req, res) => {
     console.log("getAllBooks called begin");
-    // try {
-    //   const books = await readBooksFromFile();
-    //   res.json({
-    //     success: true,
-    //     count: books.length,
-    //     data: books
-    //   });
-    // } catch (error) {
-    //   res.status(500).json({
-    //     success: false,
-    //     error: 'Failed to fetch books'
-    //   });
-    // }
-
-    res.json({
+    try {
+      const books = await readBooksFromFile();
+      res.json({
         success: true,
-        count: 1,
-        data: {'Sample Book': 'This is a sample book data'}
+        count: books.length,
+        data: books
       });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: 'Failed to fetch books'
+      });
+    }
     console.log("getAllBooks called");
   },
 
